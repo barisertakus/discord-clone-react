@@ -1,7 +1,11 @@
-import React from 'react'
+import React from "react";
 import "./Sidebar.css";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AddIcon from '@mui/icons-material/Add';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddIcon from "@mui/icons-material/Add";
+import SidebarChannel from "./SidebarChannel";
+import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import CallIcon from "@mui/icons-material/Call";
 
 function Sidebar() {
   return (
@@ -20,9 +24,33 @@ function Sidebar() {
 
           <AddIcon className="sidebar__addChannel" />
         </div>
+        <div className="channels__list">
+          <SidebarChannel channel="channel1" />
+          <SidebarChannel channel="channel2" />
+          <SidebarChannel channel="channel3" />
+          <SidebarChannel channel="channel4" />
+          <SidebarChannel channel="channel5" />
+          <SidebarChannel channel="channel6"/>
+        </div>
+      </div>
+
+      <div className="sidebar__voice">
+        <SignalCellularAltIcon
+          className="sidebar__voiceIcon"
+          fontSize="large"
+        />
+        <div className="sidebar__voiceInfo">
+          <h3>Voice Connected</h3>
+          <p>Stream</p>
+        </div>
+
+        <div className="sidebar__voiceIcons">
+          <InfoOutlinedIcon />
+          <CallIcon />
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
