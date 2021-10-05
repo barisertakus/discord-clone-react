@@ -6,6 +6,11 @@ import SidebarChannel from "./SidebarChannel";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CallIcon from "@mui/icons-material/Call";
+import MicIcon from "@mui/icons-material/Mic";
+import HeadsetIcon from "@mui/icons-material/Headset";
+import SettingsIcon from "@mui/icons-material/Settings";
+
+import { Avatar } from "@mui/material";
 
 function Sidebar() {
   return (
@@ -30,7 +35,7 @@ function Sidebar() {
           <SidebarChannel channel="channel3" />
           <SidebarChannel channel="channel4" />
           <SidebarChannel channel="channel5" />
-          <SidebarChannel channel="channel6"/>
+          <SidebarChannel channel="channel6" />
         </div>
       </div>
 
@@ -47,6 +52,20 @@ function Sidebar() {
         <div className="sidebar__voiceIcons">
           <InfoOutlinedIcon />
           <CallIcon />
+        </div>
+      </div>
+
+      <div class="sidebar__profile">
+        <Avatar src="https://e7.pngegg.com/pngimages/450/656/png-clipart-programmer-computer-icons-ninja-saga-computer-software-ninja-computer-sticker-thumbnail.png" />
+        <div class="sidebar__profileInfo">
+          <h3>Baris Ertakus</h3>
+          <p>#0001</p>
+        </div>
+
+        <div class="sidebar__profileIcons">
+          <MicIcon />
+          <HeadsetIcon />
+          <SettingsIcon />
         </div>
       </div>
     </div>
