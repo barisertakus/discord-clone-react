@@ -20,9 +20,9 @@ function Sidebar() {
         <ExpandMoreIcon />
       </div>
 
-      <div class="sidebar__channels">
-        <div class="sidebar__channelsHeader">
-          <div class="sidebar__header">
+      <div className="sidebar__channels">
+        <div className="sidebar__channelsHeader">
+          <div className="sidebar__header">
             <ExpandMoreIcon />
             <h4>Text Channels</h4>
           </div>
@@ -55,14 +55,14 @@ function Sidebar() {
         </div>
       </div>
 
-      <div class="sidebar__profile">
+      <div className="sidebar__profile">
         <Avatar src="https://e7.pngegg.com/pngimages/450/656/png-clipart-programmer-computer-icons-ninja-saga-computer-software-ninja-computer-sticker-thumbnail.png" />
-        <div class="sidebar__profileInfo">
+        <div className="sidebar__profileInfo">
           <h3>Baris Ertakus</h3>
           <p>#0001</p>
         </div>
 
-        <div class="sidebar__profileIcons">
+        <div className="sidebar__profileIcons">
           <MicIcon />
           <HeadsetIcon />
           <SettingsIcon />
