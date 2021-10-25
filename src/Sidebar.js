@@ -11,8 +11,14 @@ import HeadsetIcon from "@mui/icons-material/Headset";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import { Avatar } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/userSlice";
+import { auth } from "./firebase";
 
 function Sidebar() {
+
+  const user = useSelector(selectUser);
+
   return (
     <div className="sidebar">
       <div className="sidebar__top">
@@ -56,10 +62,10 @@ function Sidebar() {
       </div>
 
       <div className="sidebar__profile">
-        <Avatar src="https://e7.pngegg.com/pngimages/450/656/png-clipart-programmer-computer-icons-ninja-saga-computer-software-ninja-computer-sticker-thumbnail.png" />
+        <Avatar onClick={()=>auth.signOut()} src={user.photo} placeholder="Logout" />
         <div className="sidebar__profileInfo">
-          <h3>Baris Ertakus</h3>
-          <p>#0001</p>
+          <h3>{user.displayName}</h3>
+          <p>{user.id.substring(0, 6)}</p>
         </div>
 
         <div className="sidebar__profileIcons">
