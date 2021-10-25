@@ -9,7 +9,7 @@ function ChatHeader() {
           <span className="chatHeader__hash">
             #
           </span>
-          Test Channel Name
+          Discord
         </h3>
       </div>
 
