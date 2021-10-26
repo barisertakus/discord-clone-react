@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
@@ -13,11 +13,30 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
-import { auth } from "./firebase";
+import db, { auth } from "./firebase";
 
 function Sidebar() {
-
   const user = useSelector(selectUser);
+  const [channels, setChannels] = useState([]);
+
+  const handleAddChannel = () => {
+    const channelName = prompt("Enter channel name");
+
+    if (channelName) {
+      db.collection("channels").add({ channelName });
+    }
+  };
+
+  useEffect(() => {
+    db.collection("channels").onSnapshot((snapShot) =>
+      setChannels(
+        snapShot.docs.map((doc) => ({
+          id: doc.id,
+          channel: doc.data(),
+        }))
+      )
+    );
+  }, []);
 
   return (
     <div className="sidebar">
@@ -33,15 +52,15 @@ function Sidebar() {
             <h4>Text Channels</h4>
           </div>
 
-          <AddIcon className="sidebar__addChannel" />
+          <AddIcon onClick={handleAddChannel} className="sidebar__addChannel" />
         </div>
         <div className="channels__list">
-          <SidebarChannel channel="channel1" />
+          {channels.map(({channel,id}) => (
+            <SidebarChannel key={id} channel={channel.channelName} />
+          ))}
+          {/* <SidebarChannel channel="channel1" />
           <SidebarChannel channel="channel2" />
-          <SidebarChannel channel="channel3" />
-          <SidebarChannel channel="channel4" />
-          <SidebarChannel channel="channel5" />
-          <SidebarChannel channel="channel6" />
+          <SidebarChannel channel="channel3" /> */}
         </div>
       </div>
 
@@ -62,7 +81,11 @@ function Sidebar() {
       </div>
 
       <div className="sidebar__profile">
-        <Avatar onClick={()=>auth.signOut()} src={user.photo} placeholder="Logout" />
+        <Avatar
+          onClick={() => auth.signOut()}
+          src={user.photo}
+          placeholder="Logout"
+        />
         <div className="sidebar__profileInfo">
           <h3>{user.displayName}</h3>
           <p>{user.id.substring(0, 6)}</p>
