@@ -56,7 +56,7 @@ function Sidebar() {
         </div>
         <div className="channels__list">
           {channels.map(({channel,id}) => (
-            <SidebarChannel key={id} channel={channel.channelName} />
+            <SidebarChannel key={id} id={id} channelName={channel.channelName} />
           ))}
           {/* <SidebarChannel channel="channel1" />
           <SidebarChannel channel="channel2" />
