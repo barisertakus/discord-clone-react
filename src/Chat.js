@@ -1,5 +1,5 @@
 import { AddCircle, CardGiftcard, EmojiEmotions, Gif } from '@mui/icons-material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./Chat.css"
 import ChatHeader from "./ChatHeader"
 import Message from './Message'
@@ -17,24 +17,23 @@ function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
+  const messagesEnd = useRef();
 
   const handleChange = (e) => {
     setMessage(e.target.value);
   }
 
-  useEffect(() => {
-    if (channelId)
-      db.collection("channels")
-        .doc(channelId)
-        .collection("messages")
-        .orderBy("timestamp", "asc")
-        .onSnapshot((snapshot) =>
-          setMessages(snapshot.docs.map((doc) => doc.data()))
-        );
-  }, [channelId]);
+  // const scrollToBottomSmooth = () => {
+  //   messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
+  // }
+
+  const scrollToBottom = () => {
+    messagesEnd.current?.scrollIntoView();
+  }
 
   const sendMessage = (e) => {
-
+    e.preventDefault()
+    
     db.collection("channels").doc(channelId).collection("messages")
     .add({
       message: message,
@@ -43,20 +42,38 @@ function Chat() {
     })
 
     setMessage("");
-    e.preventDefault()
   }
-  console.log(messages)
+
+  useEffect(() => {
+    if (channelId) {
+      db.collection("channels")
+        .doc(channelId)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) =>
+          setMessages(snapshot.docs.map((doc) => doc.data()))
+        );
+    }
+  }, [channelId]);
+
+  useEffect(()=>{
+    scrollToBottom();
+  },[messages])
+
   return (
     <div className="chat">
       <ChatHeader channelName={channelName} />
 
       <div className="chat__messages">
         {messages.map((message) => (
-          <Message
-            content={message.message}
-            user={message.user}
-            timestamp={message.timestamp}
-          />
+          <>
+            <Message
+              content={message.message}
+              user={message.user}
+              timestamp={message.timestamp}
+            />
+            <div ref={messagesEnd} ></div>
+          </>
         ))}
       </div>
 
